@@ -378,8 +378,8 @@ function drawTable(dices, turns) {
         setValue(`fok${i}`, result[`fok${i}+`]);
     }
     //straight
-    setValue(`small_straight`, result[`smallStraight`]);
-    setValue(`large_straight`, result[`smallStraight`] + result[`largeStraight`]);
+    setValue(`small_straight`, result[`smallStraight`] + result[`largeStraight`]);
+    setValue(`large_straight`, result[`largeStraight`]);
     //8
     for(var i=60;i<=75;i++) {
         setValue(`eight${i}`, result[`u8-${i}+`]);
