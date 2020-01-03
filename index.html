@@ -6,11 +6,68 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Yams!</title>
+    <style>
+        td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
-<body class="text-center">
-
+<body class="text-center" style="display: none">
+    Current: <input type="text" id="dice" name="dice" /> <br />
+    Throws left: <select id="turns"><option>2</option><option>1</option><option>3</option></select> <br />
+    <input type="button" id="compute" name="compute" value="Compute" onclick="compute();return false;" />
+    <hr />
+    <h3>Upper</h3>
+    <table>
+        <tr><th>Dice</th><th>1+</th><th>2+</th><th>3+</th><th>4+</th><th>5</th></tr>
+        <tr><td>1s</td><td id="1s-1"></td><td id="1s-2"></td><td id="1s-3"></td><td id="1s-4"></td><td id="1s-5"></td></tr>
+        <tr><td>2s</td><td id="2s-1"></td><td id="2s-2"></td><td id="2s-3"></td><td id="2s-4"></td><td id="2s-5"></td></tr>
+        <tr><td>3s</td><td id="3s-1"></td><td id="3s-2"></td><td id="3s-3"></td><td id="3s-4"></td><td id="3s-5"></td></tr>
+        <tr><td>4s</td><td id="4s-1"></td><td id="4s-2"></td><td id="4s-3"></td><td id="4s-4"></td><td id="4s-5"></td></tr>
+        <tr><td>5s</td><td id="5s-1"></td><td id="5s-2"></td><td id="5s-3"></td><td id="5s-4"></td><td id="5s-5"></td></tr>
+        <tr><td>6s</td><td id="6s-1"></td><td id="6s-2"></td><td id="6s-3"></td><td id="6s-4"></td><td id="6s-5"></td></tr>
+    </table>
+    <hr />
+    <h3>Sums</h3>
+    <table>
+        <tr><th></th><th>20</th><th>21</th><th>22</th><th>23</th><th>24</th><th>25</th><th>26</th><th>27</th><th>28</th><th>29</th><th>30</th></tr>
+        <tr><td>exact</td><td id="sum20e"></td><td id="sum21e"></td><td id="sum22e"></td><td id="sum23e"></td><td id="sum24e"></td><td id="sum25e"></td><td id="sum26e"></td><td id="sum27e"></td><td id="sum28e"></td><td id="sum29e"></td><td id="sum30e"></td></tr>
+        <tr><td>at least</td><td id="sum20al"></td><td id="sum21al"></td><td id="sum22al"></td><td id="sum23al"></td><td id="sum24al"></td><td id="sum25al"></td><td id="sum26al"></td><td id="sum27al"></td><td id="sum28al"></td><td id="sum29al"></td><td id="sum30al"></td></tr>
+    </table>
+    <hr />
+    <h3>Full House</h3>
+    <table>
+        <tr><th>25+</th><th>26+</th><th>27+</th><th>28+</th><th>29+</th><th>30+</th><th>31+</th><th>32+</th><th>33+</th><th>34+</th><th>35+</th><th>36+</th><th>37+</th><th>38+</th><th>39+</th><th>40+</th><th>41+</th><th>42+</th><th>43+</th><th>44+</th><th>45+</th><th>46+</th><th>47+</th><th>48+</th><th>49+</th><th>50</th></tr>
+        <tr><td id="f25"></td><td id="f26"></td><td id="f27"></td><td id="f28"></td><td id="f29"></td><td id="f30"></td><td id="f31"></td><td id="f32"></td><td id="f33"></td><td id="f34"></td><td id="f35"></td><td id="f36"></td><td id="f37"></td><td id="f38"></td><td id="f39"></td><td id="f40"></td><td id="f41"></td><td id="f42"></td><td id="f43"></td><td id="f44"></td><td id="f45"></td><td id="f46"></td><td id="f47"></td><td id="f48"></td><td id="f49"></td><td id="f50"></td></tr>
+    </table>
+    <hr />
+    <h3>Four of a kind</h3>
+    <table>
+        <tr><th>34+</th><th>38+</th><th>42+</th><th>46+</th><th>50+</th><th>54</th></tr>
+        <tr><td id="fok34"></td><td id="fok38"></td><td id="fok42"></td><td id="fok46"></td><td id="fok50"></td><td id="fok54"></td></tr>
+    </table>
+    <hr />
+    <h3>Straight</h3>
+    <table>
+        <tr><th>small+</th><th>large</th></tr>
+        <tr><td id="small_straight"></td><td id="large_straight"></td></tr>
+    </table>
+    <hr />
+    <h3>8</h3>
+    <table>
+        <tr><th>60+</th><th>65+</th><th>70+</th><th>75</th></tr>
+        <tr><td id="eight60"></td><td id="eight65"></td><td id="eight70"></td><td id="eight75"></td></tr>
+    </table>
+    <hr />
+    <h3>Yams</h3>
+    <table>
+        <tr><th>75+</th><th>80+</th><th>85+</th><th>90+</th><th>95+</th><th>100</th></tr>
+        <tr><td id="y75"></td><td id="y80"></td><td id="y85"></td><td id="y90"></td><td id="y95"></td><td id="y100"></td></tr>
+    </table>
+    <hr />
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
 </body>
 </html>
